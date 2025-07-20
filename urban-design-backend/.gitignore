@@ -1,0 +1,14 @@
+.env*
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store

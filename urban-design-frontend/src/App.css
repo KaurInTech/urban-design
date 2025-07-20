@@ -1,0 +1,23 @@
+/* App.css */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.app-container {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+  font-size: 1.5rem;
+  background-color: #f9f9f9;
+}
