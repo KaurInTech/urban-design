@@ -32,7 +32,6 @@ numpy==2.3.1
 orjson==3.11.0
 packaging==25.0
 pandas==2.3.1
-pydantic==2.6.4
 pydantic==1.10.13
 Pygments==2.19.2
 python-dateutil==2.9.0.post0
