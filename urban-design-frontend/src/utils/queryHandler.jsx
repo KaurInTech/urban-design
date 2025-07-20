@@ -1,6 +1,9 @@
 export async function handleQuery(query, meshes, setMessage) {
     try {
-      const res = await fetch('http://localhost:5000/api/query', {
+      const BACKEND_URL =
+        import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
+      const res = await fetch(`${BACKEND_URL}/api/query`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query })

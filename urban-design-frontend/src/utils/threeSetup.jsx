@@ -31,7 +31,9 @@ export function setupScene(mountRef) {
 
   export async function loadBuildings(scene, buildingMeshes) {
     try {
-      const res = await fetch("http://localhost:5000/api/buildings");
+      const BACKEND_URL =
+      import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+      const res = await fetch(`${BACKEND_URL}/api/buildings`);
       const data = await res.json();
   
       data.forEach((feature) => {
