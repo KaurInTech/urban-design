@@ -1,0 +1,15 @@
+
+# Environment variables
+.env*
+# Python
+__pycache__/
+*.pyc
+*.db
+
+# Node.js
+urban-design-frontend/node_modules/
+urban-design-frontend/.next/
+
+# Mac
+.DS_Store
+
