@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from app.services.building_service import query_buildings
 from app.services.llm_service import extract_filter_from_text
 
 bp = Blueprint('query', __name__, url_prefix='/api')
@@ -13,9 +12,7 @@ def query():
         parsed = extract_filter_from_text(user_query)
         if not parsed:
             return jsonify({"error": "Could not extract filter from query."}), 400
-
-        buildings = query_buildings(parsed["attribute"], parsed["operator"], parsed["value"])
-        return jsonify({"filter": parsed, "results": buildings})
+        return jsonify({"filter": parsed})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

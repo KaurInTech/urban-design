@@ -31,18 +31,22 @@ export function setupScene(mountRef) {
 
   export async function loadBuildings(scene, buildingMeshes) {
     try {
-      const BACKEND_URL =
-      import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
-      const res = await fetch(`${BACKEND_URL}/api/buildings`);
-      const data = await res.json();
+      const res = await fetch("/buildings.json");
+      const geojson = await res.json();
+      const data = geojson.features;
   
       data.forEach((feature) => {
-        const coords = feature.coordinates?.[0];
+        const props = feature.properties || {};
+        const coords =  feature.geometry?.coordinates[0];
         if (!coords) return;
   
         const shape = createBuildingShape(coords);
-        const height = feature.height || 3;
-  
+        const levels = parseInt(props["building:levels"]) || 1;
+        const height = levels * 3;
+        const address = [props["addr:housenumber"], props["addr:street"], props["addr:city"], props["addr:postcode"]]
+        .filter(Boolean)
+        .join(", ");
+
         const geometry = new THREE.ExtrudeGeometry(shape, {
           depth: height,
           bevelEnabled: false,
@@ -55,8 +59,12 @@ export function setupScene(mountRef) {
   
         const mesh = new THREE.Mesh(geometry, material);
         mesh.userData = {
-          ...feature,
-          id: feature.osm_id,
+          id: props["@id"],
+          name: props.name || "Unnamed",
+          type: props.building === "yes" ? "generic" : props.building || "unknown",
+          address,
+          levels,
+          height,
         };
   
         scene.add(mesh);

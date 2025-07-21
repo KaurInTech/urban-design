@@ -1,13 +1,15 @@
-import './App.css';
-import ThreeMap from './scenes/ThreeMap';
+// src/App.jsx
+import React from 'react';
+import { useAppSelector } from './redux/hooks';
+import UserNamePrompt from './components/UserNamePrompt';
+import ProjectDashboard from './components/ProjectDashboard';
 
-function App() {
+export default function App() {
+  const username = useAppSelector((state) => state.user.username);
+
   return (
-    <div className="app-container">
-      <h2 className="header">3D City Dashboard</h2>
-      <ThreeMap />
-    </div>
+    <>
+      {!username ? <UserNamePrompt /> : <ProjectDashboard />}
+    </>
   );
 }
-
-export default App;

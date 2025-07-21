@@ -1,6 +1,16 @@
 import sqlite3
 
-def get_connection():
-    conn = sqlite3.connect("buildings.db")
-    conn.row_factory = sqlite3.Row  # so rows become dict-like
-    return conn
+def init_db():
+    conn = sqlite3.connect('projects.db')
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS projects (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT,
+            project_name TEXT,
+            query TEXT,
+            filter TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
