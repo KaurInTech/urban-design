@@ -9,7 +9,24 @@ This project is a full-stack web dashboard that visualizes Calgary city building
 - **LLM Integration:** Hugging Face Inference API (`T0pp` model)
 
 ---
+## 📌 Note on Dataset and Usable Filters
 
+The dataset used in this project is derived from OpenStreetMap building footprints for Calgary city blocks. While the data includes valuable structural information, it does **not** include zoning or assessed property values as originally suggested.
+
+However, the following attributes are available and can be used in natural language queries:
+
+- `height`: Height of the building in meters
+- `levels`: Number of floors/levels
+- `type`: Type of building (`commercial`, `government`, `school`, etc.)
+
+You can test the application using example queries like:
+
+- "Highlight buildings taller than 20 meters"
+- "Show buildings with more than 2 levels"
+- "Show buildings whose type is commercial"
+
+Please avoid queries related to residential zoning or monetary property values, as those attributes are not present in this dataset.
+---
 ## 💡 Features
 
 ### 1. 3D City Visualization
