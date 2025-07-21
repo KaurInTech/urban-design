@@ -38,13 +38,13 @@ Return JSON with 'attribute', 'operator', and 'value'
 4. Filter is applied to 3D mesh → Matching buildings highlighted
 
 ##  Backend Setup
-cd urban-design-backend
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate
-pip install -r requirements.txt
-python app.py
+- cd urban-design-backend
+- python -m venv venv
+- source venv/bin/activate  # or venv\Scripts\activate
+- pip install -r requirements.txt
+- python main.py
 
 ## Frontend Setup
-cd urban-design-frontend
-npm install
-npm run dev
+- cd urban-design-frontend
+- npm install
+- npm run dev
