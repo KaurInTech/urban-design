@@ -1,37 +1,42 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
 ### Frontend UML Diagram (Mermaid)
 
 ```mermaid
-classDiagram
-    class App {
-        +ProjectDashboard
-    }
-    class ProjectDashboard {
-        +ProjectList
-        +ThreeMap
-    }
-    class ProjectList {
-        +projects : ReduxState
-        +onProjectClick()
-    }
-    class ThreeMap {
-        +wrappedQueryHandler()
-        +highlightBuildings()
-        +saveProjectHandler()
-    }
+sequenceDiagram
+    participant User
+    participant UsernameInput
+    participant Redux(UserSlice)
+    participant ProjectDashboard
+    participant ProjectList
+    participant ThreeMap
+    participant Redux(QuerySlice)
+    participant SearchInput
 
-    App --> ProjectDashboard
-    ProjectDashboard --> ProjectList
-    ProjectDashboard --> ThreeMap
+    User->>UsernameInput: Enter username
+    UsernameInput->>Redux(UserSlice): dispatch(setUsername)
+    UsernameInput-->>ProjectDashboard: Show dashboard view
+
+    ProjectDashboard->>ProjectList: Render with Redux(user, projects)
+    ProjectDashboard->>ThreeMap: Render with Redux(query, user)
+
+    User->>SearchInput: Enter query & press Enter
+    SearchInput->>ThreeMap: onSubmit(query)
+
+    ThreeMap->>Redux(QuerySlice): dispatch(fetchQueryFilter(query))
+    Redux(QuerySlice)->>Backend: POST /api/query
+    Backend-->>Redux(QuerySlice): Return { query, filter }
+    Redux(QuerySlice)-->>Redux store: Update lastQuery, lastFilter
+
+    ThreeMap->>ThreeMap: Highlight buildings based on lastFilter
+    ThreeMap-->>SearchInput: Show success message
+
+    User->>SearchInput: Click "Save Project"
+    SearchInput->>ThreeMap: onSaveProject(query)
+    ThreeMap->>Redux(ProjectSlice): dispatch(saveProject)
+    Redux(ProjectSlice)->>Backend: POST /api/save_project
+    Backend-->>Redux(ProjectSlice): Confirm save
+    Redux(ProjectSlice)-->>Redux store: Add project
+    ThreeMap-->>SearchInput: Show save success message
+
+    User->>ProjectList: Click saved project card
+    ProjectList->>ThreeMap: onProjectClick(project.filter)
+    ThreeMap->>ThreeMap: Highlight buildings using that filter
