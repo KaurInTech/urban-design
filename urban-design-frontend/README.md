@@ -10,3 +10,28 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+### Frontend UML Diagram (Mermaid)
+
+```mermaid
+classDiagram
+    class App {
+        +ProjectDashboard
+    }
+    class ProjectDashboard {
+        +ProjectList
+        +ThreeMap
+    }
+    class ProjectList {
+        +projects : ReduxState
+        +onProjectClick()
+    }
+    class ThreeMap {
+        +wrappedQueryHandler()
+        +highlightBuildings()
+        +saveProjectHandler()
+    }
+
+    App --> ProjectDashboard
+    ProjectDashboard --> ProjectList
+    ProjectDashboard --> ThreeMap
