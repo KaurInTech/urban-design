@@ -4,7 +4,6 @@
 <details>
 <summary>Example (Backend UML - Sequence Diagram)</summary>
 
-```md
 ### Backend UML Diagram (Mermaid)
 
 ```mermaid
