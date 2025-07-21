@@ -33,13 +33,10 @@ This project is a full-stack web dashboard that visualizes Calgary city building
 2. Backend sends:  
 Extract the filter from this query: highlight buildings over 100 feet.
 Return JSON with 'attribute', 'operator', and 'value'
-
 3. Response:  
 ```json
 {"attribute": "height", "operator": ">", "value": 100}
 4. Filter is applied to 3D mesh → Matching buildings highlighted
-
-
 
 ##  Backend Setup
 cd urban-design-backend
