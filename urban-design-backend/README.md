@@ -1,9 +1,3 @@
-
-</details>
-
-<details>
-<summary>Example (Backend UML - Sequence Diagram)</summary>
-
 ### Backend UML Diagram (Mermaid)
 
 ```mermaid
