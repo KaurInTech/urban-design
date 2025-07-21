@@ -15,8 +15,17 @@ sequenceDiagram
     Backend->>Frontend: Return filter
     Frontend->>Frontend: Highlight buildings
 
-    User->>Frontend: Click Save
+    User->>Frontend: Click Save Project
     Frontend->>Backend: POST /api/save_project
-    Backend->>SQLite: Insert user & filter
-    SQLite-->>Backend: Success
-    Backend-->>Frontend: Confirm saved
+    Backend->>SQLite: Insert (username, project_name, query, filter)
+    SQLite-->>Backend: Confirm Save
+    Backend-->>Frontend: Show success message
+
+    User->>Frontend: Enter Username / Open App
+    Frontend->>Backend: GET /api/load_projects?username=XYZ
+    Backend->>SQLite: SELECT * FROM projects WHERE username = XYZ
+    SQLite-->>Backend: Return list of saved projects
+    Backend-->>Frontend: Send saved projects
+    Frontend->>Frontend: Display project cards
+    User->>Frontend: Click on project card
+    Frontend->>Frontend: Re-apply stored filter to 3D map
